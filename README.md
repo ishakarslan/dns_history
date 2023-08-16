@@ -156,6 +156,48 @@ fi
 exit 0
 ```
 
+The script is processing some files before it starts working,
+First of all, it cleans the raw dns queries of the previous day, deletes the raw query results of yesterday under the /data/fqdn_ips/rawresult/ directory, makes it ready for today's results to be written,
+Then it removes the “result-yester” file in the /data/fqdn_ips/result directory, this file contains the processed results from two days ago,
+Finally, it replaces the "result-today" file in the /data/fqdn_ips/result directory as "result-yester", so today's parsed results will be written as "result-today" again and  will be compared with yersterday's results, then changed fqdn/domains will be written to the  "result" file. This method has been started because comparing  changed dns records from elasticsearch will  tire elasticsearch and take too much time.
+
+### Massdns
+https://github.com/blechschmidt/massdns
+I changed massdns codes and will upload github, it was more difficult to parse massdns results, I changed the massdns output, the output like below
+
+<img width="628" alt="Screenshot 2023-08-16 at 14 21 39" src="https://github.com/ishakarslan/dns_history/assets/5375225/fe82c0b8-d672-429c-baa6-585f4e2a84d5">
+
+when I upload it you should download it and compile it
+
+```cd massdns && make && make install```
+
+### Using massdns
+```/usr/local/bin/massdns --retry REFUSED --retry SERVFAIL -q  --processes 10 -r /root/massdns/lists/resolvers.txt -t A -o Snq /data/fqdn_ips/2019-04-fqdns.txt  -w /data/fqdn_ips/rawresult/fqdn_ip.txt --root -c 100```
+
+### description of parameters
+- retry REFUSED   : If a resolver connection refused is returned for a query, ask another resolver.
+- retry SERVFAIL  : if the resolver returns SRVFAIL(incorrect dns record) for a query, ask another resolver.
+- q               : print output to stdout.
+- precesses       : the number of processes to open.
+- /root/massdns/lists/resolvers.txt : list of resolvers to use.
+- t               : query type.
+- o               : output format (this format is customized).
+- /data/fqdn_ips/2019-04-fqdns.txt : fqdn list to ask.
+-w                : the destination where the output will be written (here, each process creates its own output file in the target directory, eg: fqdn_ip.txt0, fqdn_ip.txt1, fqdn_ip.txt2, each process appends its id to the end of the file)
+
+### Createing Massdns resolver list
+Massdns resolver list is provided from public-dns.info address, a script has been prepared for sinkhole or resolvers that return different answers, this script located /root/massdns/lists/test.sh, a domain given to the script is asked to all resolvers and those that return different answers are eliminated, The script content is as follows;
+
+```
+for i in `cat /root/massdns/lists/resolvers.txt`
+do
+  echo -e "$i\t\t`dig +short +time=3  homeapps.esignal.com @$i|sed -e :a -e '$!N; s/\n/ /; ta'`\n"
+done
+```
+
+
+
+
 
 
 
