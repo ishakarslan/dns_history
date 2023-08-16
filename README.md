@@ -175,15 +175,15 @@ when I upload it you should download it and compile it
 ```/usr/local/bin/massdns --retry REFUSED --retry SERVFAIL -q  --processes 10 -r /root/massdns/lists/resolvers.txt -t A -o Snq /data/fqdn_ips/2019-04-fqdns.txt  -w /data/fqdn_ips/rawresult/fqdn_ip.txt --root -c 100```
 
 ### description of parameters
--retry REFUSED   : If a resolver connection refused is returned for a query, ask another resolver.
--retry SERVFAIL  : if the resolver returns SRVFAIL(incorrect dns record) for a query, ask another resolver.
--q               : print output to stdout.
--precesses       : the number of processes to open.
--/root/massdns/lists/resolvers.txt : list of resolvers to use.
--t               : query type.
--o               : output format (this format is customized).
--/data/fqdn_ips/2019-04-fqdns.txt : fqdn list to ask.
--w                : the destination where the output will be written (here, each process creates its own output file in the target directory, eg: fqdn_ip.txt0, fqdn_ip.txt1, fqdn_ip.txt2, each process appends its id to the end of the file)
+- -retry REFUSED   : If a resolver connection refused is returned for a query, ask another resolver.
+- -retry SERVFAIL  : if the resolver returns SRVFAIL(incorrect dns record) for a query, ask another resolver.
+- -q               : print output to stdout.
+- -precesses       : the number of processes to open.
+- -/root/massdns/lists/resolvers.txt : list of resolvers to use.
+- -t               : query type.
+- -o               : output format (this format is customized).
+- -/data/fqdn_ips/2019-04-fqdns.txt : fqdn list to ask.
+- -w                : the destination where the output will be written (here, each process creates its own output file in the target directory, eg: fqdn_ip.txt0, fqdn_ip.txt1, fqdn_ip.txt2, each process appends its id to the end of the file)
 
 ### Createing Massdns resolver list
 Massdns resolver list is provided from public-dns.info address, a script has been prepared for sinkhole or resolvers that return different answers, this script located /root/massdns/lists/test.sh, a domain given to the script is asked to all resolvers and those that return different answers are eliminated, The script content is as follows;
