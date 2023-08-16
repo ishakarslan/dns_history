@@ -175,14 +175,14 @@ when I upload it you should download it and compile it
 ```/usr/local/bin/massdns --retry REFUSED --retry SERVFAIL -q  --processes 10 -r /root/massdns/lists/resolvers.txt -t A -o Snq /data/fqdn_ips/2019-04-fqdns.txt  -w /data/fqdn_ips/rawresult/fqdn_ip.txt --root -c 100```
 
 ### description of parameters
-- retry REFUSED   : If a resolver connection refused is returned for a query, ask another resolver.
-- retry SERVFAIL  : if the resolver returns SRVFAIL(incorrect dns record) for a query, ask another resolver.
-- q               : print output to stdout.
-- precesses       : the number of processes to open.
-- /root/massdns/lists/resolvers.txt : list of resolvers to use.
-- t               : query type.
-- o               : output format (this format is customized).
-- /data/fqdn_ips/2019-04-fqdns.txt : fqdn list to ask.
+-retry REFUSED   : If a resolver connection refused is returned for a query, ask another resolver.
+-retry SERVFAIL  : if the resolver returns SRVFAIL(incorrect dns record) for a query, ask another resolver.
+-q               : print output to stdout.
+-precesses       : the number of processes to open.
+-/root/massdns/lists/resolvers.txt : list of resolvers to use.
+-t               : query type.
+-o               : output format (this format is customized).
+-/data/fqdn_ips/2019-04-fqdns.txt : fqdn list to ask.
 -w                : the destination where the output will be written (here, each process creates its own output file in the target directory, eg: fqdn_ip.txt0, fqdn_ip.txt1, fqdn_ip.txt2, each process appends its id to the end of the file)
 
 ### Createing Massdns resolver list
