@@ -12,11 +12,13 @@ content = file.read().splitlines()
 
 TOTAL = {}
 ip_addr_arch = {"ip": "0.0.0.0","insert_date": "1-1-1", "last_seen": "1-1-1"}
-es = Elasticsearch([{'host': "10.0.0.182", 'port': "9200"}])
+#set elastic ip
+es = Elasticsearch([{'host': "10.0.0.5", 'port': "9200"}])
 
 def request_to_es(fqdn):
+    #set index_name
     res = es.get(index="clear_fqdn_assets2", doc_type='unique', id=fqdn)
-#    if res['found'] == True:
+#   if res['found'] == True:
     if "ip_addr" in res['_source']:
         return res
     else:
