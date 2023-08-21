@@ -105,7 +105,7 @@ do
     sleep 300
 done
 
-/scripts/fqdn_ips/start_fqdn.sh > /dev/null 2>&1 &
+/scripts/fqdn_ips/update_es.sh > /dev/null 2>&1 &
 
 if [ $? -eq 0 ]
 then
