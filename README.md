@@ -1,4 +1,4 @@
-## dns_history
+## DNS History Project
 ### Aim
 There are about 500m domains and 650M fqdns in the world,  Within the scope of the project, it is aimed to check and keep DNS history of all fqdns and domains every day and update them on a nosql database,  monitor http/https up/down status historically.
 
